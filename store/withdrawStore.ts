@@ -13,12 +13,7 @@ import {
 import { generateIdempotencyKey } from "@/lib/idempotency";
 import { saveLastWithdrawalId } from "@/lib/persistence/withdrawalStorage";
 
-export type WithdrawUiState =
-  | "idle"
-  | "submitting"
-  | "polling"
-  | "success"
-  | "error";
+export type WithdrawUiState = "idle" | "submitting" | "polling" | "success" | "error";
 
 interface WithdrawFormState {
   amount: string;
@@ -220,4 +215,3 @@ export const useWithdrawStore = create<WithdrawStore>((set, get) => ({
     }
   },
 }));
-

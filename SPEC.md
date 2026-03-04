@@ -14,21 +14,25 @@
 ### 1) Страница Withdraw
 
 Поля:
+
 - `amount` (> 0);
 - `destination`;
 - `confirm` (checkbox).
 
 Требования:
+
 - submit доступен только при валидной форме;
 - во время запроса submit disabled.
 
 ### 2) API-интеграция
 
 Использовать:
+
 - `POST /v1/withdrawals`
 - `GET /v1/withdrawals/{id}`
 
 Поведение:
+
 - отправляется `idempotency_key`;
 - `409` показывается понятным текстом;
 - при сетевой ошибке есть retry без потери введенных данных;

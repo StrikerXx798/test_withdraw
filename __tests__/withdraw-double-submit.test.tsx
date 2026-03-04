@@ -30,9 +30,7 @@ describe("Withdraw double submit protection", () => {
 
     await user.type(screen.getByLabelText(/сумма/i), "100");
     await user.type(screen.getByLabelText(/адрес/i), "0x123");
-    await user.click(
-      screen.getByRole("checkbox", { name: /подтверждаю/i })
-    );
+    await user.click(screen.getByRole("checkbox", { name: /подтверждаю/i }));
 
     const submitButton = screen.getByRole("button", { name: /вывести/i });
     await user.click(submitButton);

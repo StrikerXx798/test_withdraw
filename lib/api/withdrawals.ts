@@ -1,8 +1,4 @@
-export type WithdrawalStatus =
-  | "pending"
-  | "processing"
-  | "completed"
-  | "failed";
+export type WithdrawalStatus = "pending" | "processing" | "completed" | "failed";
 
 export interface WithdrawalRequest {
   amount: number;
@@ -21,7 +17,9 @@ export interface Withdrawal {
 /** Ошибка конфликта 409 — операция уже обрабатывается с этим idempotency key */
 export class WithdrawalConflictError extends Error {
   readonly code = "WITHDRAWAL_CONFLICT";
-  constructor(message = "Операция уже обрабатывается. Повторный запрос с тем же ключом не выполнен.") {
+  constructor(
+    message = "Операция уже обрабатывается. Повторный запрос с тем же ключом не выполнен."
+  ) {
     super(message);
     this.name = "WithdrawalConflictError";
   }
@@ -67,7 +65,10 @@ async function handleResponse<T>(res: Response): Promise<T> {
 
   if (res.status === 409) {
     const message =
-      (json && typeof json === "object" && "message" in json && typeof (json as { message: unknown }).message === "string")
+      json &&
+      typeof json === "object" &&
+      "message" in json &&
+      typeof (json as { message: unknown }).message === "string"
         ? (json as { message: string }).message
         : "Операция уже обрабатывается. Повторный запрос не выполнен.";
     throw new WithdrawalConflictError(message);
@@ -75,7 +76,10 @@ async function handleResponse<T>(res: Response): Promise<T> {
 
   const fallbackMessage = `Ошибка запроса (${res.status}). Попробуйте позже.`;
   const message =
-    json && typeof json === "object" && "message" in json && typeof (json as { message: unknown }).message === "string"
+    json &&
+    typeof json === "object" &&
+    "message" in json &&
+    typeof (json as { message: unknown }).message === "string"
       ? (json as { message: string }).message
       : fallbackMessage;
 
@@ -89,9 +93,7 @@ async function handleResponse<T>(res: Response): Promise<T> {
 /**
  * Создаёт заявку на вывод. Передаёт idempotency_key в теле запроса.
  */
-export async function createWithdrawal(
-  request: WithdrawalRequest
-): Promise<Withdrawal> {
+export async function createWithdrawal(request: WithdrawalRequest): Promise<Withdrawal> {
   const base = getBaseUrl();
   try {
     const res = await fetch(`${base}/api/v1/withdrawals`, {
@@ -105,10 +107,7 @@ export async function createWithdrawal(
     });
     return handleResponse<Withdrawal>(res);
   } catch (err) {
-    if (
-      err instanceof WithdrawalConflictError ||
-      err instanceof WithdrawalApiError
-    ) {
+    if (err instanceof WithdrawalConflictError || err instanceof WithdrawalApiError) {
       throw err;
     }
     throw new WithdrawalNetworkError(
@@ -126,10 +125,7 @@ export async function getWithdrawal(id: string): Promise<Withdrawal> {
     const res = await fetch(`${base}/api/v1/withdrawals/${encodeURIComponent(id)}`);
     return handleResponse<Withdrawal>(res);
   } catch (err) {
-    if (
-      err instanceof WithdrawalConflictError ||
-      err instanceof WithdrawalApiError
-    ) {
+    if (err instanceof WithdrawalConflictError || err instanceof WithdrawalApiError) {
       throw err;
     }
     throw new WithdrawalNetworkError(

@@ -26,9 +26,7 @@ export default function WithdrawPage() {
         <ErrorBanner message={errorMessage} onRetry={retry} />
       )}
 
-      {(uiState === "idle" || uiState === "submitting" || uiState === "error") && (
-        <WithdrawForm />
-      )}
+      {(uiState === "idle" || uiState === "submitting" || uiState === "error") && <WithdrawForm />}
 
       {uiState === "success" && currentWithdrawal && (
         <>

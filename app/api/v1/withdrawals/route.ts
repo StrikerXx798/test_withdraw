@@ -6,10 +6,7 @@ export async function POST(request: NextRequest) {
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json(
-      { message: "Invalid JSON" },
-      { status: 400 }
-    );
+    return NextResponse.json({ message: "Invalid JSON" }, { status: 400 });
   }
 
   const idempotencyKey =
@@ -44,10 +41,7 @@ export async function POST(request: NextRequest) {
   }
 
   if (amount <= 0) {
-    return NextResponse.json(
-      { message: "Amount must be greater than 0" },
-      { status: 400 }
-    );
+    return NextResponse.json({ message: "Amount must be greater than 0" }, { status: 400 });
   }
 
   try {
@@ -64,8 +58,7 @@ export async function POST(request: NextRequest) {
       const existing = (err as { existing: object }).existing;
       return NextResponse.json(
         {
-          message:
-            "Операция уже обрабатывается. Повторный запрос с тем же ключом не выполнен.",
+          message: "Операция уже обрабатывается. Повторный запрос с тем же ключом не выполнен.",
           withdrawal: existing,
         },
         { status: 409 }

@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getWithdrawalFromMock } from "@/lib/api/mockStore";
 
-export async function GET(
-  _request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(_request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const withdrawal = getWithdrawalFromMock(id);
   if (!withdrawal) {

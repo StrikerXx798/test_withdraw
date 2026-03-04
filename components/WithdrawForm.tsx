@@ -8,11 +8,7 @@ function parseAmount(value: string): number | null {
   return n;
 }
 
-function isFormValid(
-  amount: string,
-  destination: string,
-  confirm: boolean
-): boolean {
+function isFormValid(amount: string, destination: string, confirm: boolean): boolean {
   const a = parseAmount(amount);
   if (a === null || a <= 0) return false;
   if (!destination.trim()) return false;
@@ -50,14 +46,16 @@ export function WithdrawForm() {
           value={form.amount}
           onChange={(e) => updateField("amount", e.target.value)}
           disabled={isSubmitting}
-          aria-invalid={form.amount !== "" && (parseAmount(form.amount) === null || parseAmount(form.amount)! <= 0)}
+          aria-invalid={
+            form.amount !== "" &&
+            (parseAmount(form.amount) === null || parseAmount(form.amount)! <= 0)
+          }
           style={{ width: "100%", padding: "0.5rem" }}
         />
-        {form.amount !== "" && (parseAmount(form.amount) === null || parseAmount(form.amount)! <= 0) && (
-          <span style={{ fontSize: "0.875rem", color: "#721c24" }}>
-            Введите число больше 0
-          </span>
-        )}
+        {form.amount !== "" &&
+          (parseAmount(form.amount) === null || parseAmount(form.amount)! <= 0) && (
+            <span style={{ fontSize: "0.875rem", color: "#721c24" }}>Введите число больше 0</span>
+          )}
       </div>
       <div>
         <label htmlFor="withdraw-destination" style={{ display: "block", marginBottom: "0.25rem" }}>
@@ -73,9 +71,7 @@ export function WithdrawForm() {
           style={{ width: "100%", padding: "0.5rem" }}
         />
         {form.destination.trim() === "" && form.destination.length > 0 && (
-          <span style={{ fontSize: "0.875rem", color: "#721c24" }}>
-            Укажите адрес
-          </span>
+          <span style={{ fontSize: "0.875rem", color: "#721c24" }}>Укажите адрес</span>
         )}
       </div>
       <div>

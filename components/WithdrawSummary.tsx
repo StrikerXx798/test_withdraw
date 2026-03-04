@@ -21,9 +21,7 @@ export function WithdrawSummary({ withdrawal }: WithdrawSummaryProps) {
       }}
       aria-label="Созданная заявка"
     >
-      <h2 style={{ fontSize: "1rem", marginBottom: "0.75rem" }}>
-        Заявка создана
-      </h2>
+      <h2 style={{ fontSize: "1rem", marginBottom: "0.75rem" }}>Заявка создана</h2>
       <dl style={{ margin: 0, display: "grid", gap: "0.5rem" }}>
         <div>
           <dt style={{ fontWeight: 600, fontSize: "0.875rem" }}>ID</dt>
@@ -35,9 +33,7 @@ export function WithdrawSummary({ withdrawal }: WithdrawSummaryProps) {
         </div>
         <div>
           <dt style={{ fontWeight: 600, fontSize: "0.875rem" }}>Адрес</dt>
-          <dd style={{ margin: 0, wordBreak: "break-all" }}>
-            {withdrawal.destination}
-          </dd>
+          <dd style={{ margin: 0, wordBreak: "break-all" }}>{withdrawal.destination}</dd>
         </div>
         <div>
           <dt style={{ fontWeight: 600, fontSize: "0.875rem" }}>Статус</dt>
